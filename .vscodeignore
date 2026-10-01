@@ -8,3 +8,4 @@ __pycache__/
 *.vsix
 .gitignore
 releases/
+store-assets/logo-candidates/
