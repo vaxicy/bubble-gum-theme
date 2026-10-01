@@ -1,0 +1,51 @@
+{
+  "name": "bubble-gum-theme",
+  "displayName": "Bubble Gum Theme",
+  "description": "A playful pastel VS Code theme in bubble gum pink and magenta, with light and dark variants.",
+  "version": "1.0.0",
+  "publisher": "lilinhuang",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "galleryBanner": {
+    "color": "#FFCCF9",
+    "theme": "light"
+  },
+  "keywords": [
+    "bubble gum",
+    "bubblegum",
+    "pink",
+    "magenta",
+    "pastel",
+    "candy",
+    "playful",
+    "light theme",
+    "dark theme"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vaxicy/bubble-gum-theme"
+  },
+  "homepage": "https://github.com/vaxicy/bubble-gum-theme#readme",
+  "bugs": {
+    "url": "https://github.com/vaxicy/bubble-gum-theme/issues"
+  },
+  "contributes": {
+    "themes": [
+      {
+        "label": "Bubble Gum Theme Light",
+        "uiTheme": "vs",
+        "path": "./themes/bubble-gum-theme-light-color-theme.json"
+      },
+      {
+        "label": "Bubble Gum Theme Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/bubble-gum-theme-dark-color-theme.json"
+      }
+    ]
+  }
+}

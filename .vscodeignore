@@ -1,0 +1,8 @@
+.codebuddy/
+scripts/
+.tmp/
+.vscode/
+node_modules/
+__pycache__/
+*.pyc
+*.vsix
