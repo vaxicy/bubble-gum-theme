@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="store-assets/icon.png" width="128" alt="Bubble Gum Theme logo">
+</p>
+
 <h1 align="center">Bubble Gum Theme</h1>
 
 <p align="center">

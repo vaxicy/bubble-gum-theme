@@ -286,6 +286,10 @@ DESIGNS = [
     ("08-bite", d_bite),
 ]
 
+# The mark the user picked: shipped as store-assets/icon.png (128px, transparent).
+CHOSEN = "03-wrap"
+ICON_PATH = os.path.join("store-assets", "icon.png")
+
 
 # ------------------------------------------------------------------ output
 def save_master(img, name):
@@ -330,8 +334,12 @@ def contact_sheet(rendered):
     for r, (slug, _) in enumerate(DESIGNS):
         y = HEAD_H + r * ROW_H
         d.line([(0, y), (width, y)], fill="#E4E4E4")
-        d.text((16, y + 100), slug, font=f_name, fill="#1B1B1F")
-        d.text((16, y + 126), "transparent master", font=f_sub, fill="#7A7A7A")
+        d.text((16, y + 96), slug, font=f_name,
+               fill="#951E88" if slug == CHOSEN else "#1B1B1F")
+        d.text((16, y + 122), "transparent master", font=f_sub, fill="#7A7A7A")
+        if slug == CHOSEN:
+            d.text((16, y + 142), "chosen -> store-assets/icon.png", font=f_sub,
+                   fill="#951E88")
         for c, (_, variant, bg, mode, _) in enumerate(cols):
             x = NAME_COL_W + c * CELL_W
             if mode != "checker":
@@ -366,6 +374,29 @@ def contact_sheet(rendered):
     return out
 
 
+def chosen_preview(img):
+    """Size ramp of the shipped mark on a checkerboard, to eyeball legibility."""
+    cols = [("256 px", 256), ("128 px", 128), ("64 px", 64), ("32 px", 32)]
+    pad, top, cap = 36, 76, 56
+    width = pad + sum(s + pad for _, s in cols)
+    sheet = Image.new("RGB", (width, top + 256 + cap), "#FFFFFF")
+    d = ImageDraw.Draw(sheet)
+    d.text((pad, 26), "Bubble Gum Theme - %s (light), transparent background"
+           % CHOSEN, font=font(20, True), fill="#1B1B1F")
+    x = pad
+    for label, size in cols:
+        y = top + (256 - size) // 2
+        sheet.paste(checker(size), (x, y))
+        im = img.resize((size, size), Image.LANCZOS)
+        sheet.paste(im, (x, y), im)
+        d.rectangle([x, y, x + size - 1, y + size - 1], outline="#CFCFD8")
+        d.text((x, top + 256 + 14), label, font=font(15), fill="#5A5A66")
+        x += size + pad
+    out = os.path.join(OUT_DIR, "chosen-mark-transparent.png")
+    sheet.save(out)
+    return out
+
+
 def main():
     rendered = {}
     for slug, fn in DESIGNS:
@@ -376,6 +407,12 @@ def main():
         print("done:", slug)
     print("sheet:", contact_sheet(rendered))
     print("masters:", OUT_DIR)
+
+    chosen = rendered[(CHOSEN, "light")]
+    os.makedirs(os.path.dirname(ICON_PATH), exist_ok=True)
+    chosen.resize((128, 128), Image.LANCZOS).save(ICON_PATH)
+    print("icon written:", ICON_PATH)
+    print("preview:", chosen_preview(chosen))
 
 
 if __name__ == "__main__":

@@ -10,6 +10,7 @@
   "categories": [
     "Themes"
   ],
+  "icon": "store-assets/icon.png",
   "galleryBanner": {
     "color": "#FFCCF9",
     "theme": "light"
